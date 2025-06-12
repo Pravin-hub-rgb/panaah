@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function SignupPage() {
   const router = useRouter()
@@ -39,7 +40,6 @@ export default function SignupPage() {
   return (
     <div className="max-w-md mx-auto mt-10 p-4 border rounded shadow">
       <h2 className="text-2xl font-bold mb-4">Create an account</h2>
-
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="name"
@@ -80,6 +80,7 @@ export default function SignupPage() {
         >
           {loading ? 'Signing up...' : 'Sign up'}
         </button>
+        <Link href='/login' className='underline'>Already have an account? Login!</Link>
       </form>
     </div>
   )

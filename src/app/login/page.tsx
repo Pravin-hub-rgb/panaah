@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -25,37 +26,39 @@ export default function LoginPage() {
       setError(res.error)
     } else {
       // Login successful → redirect
-      router.push('/dashboard')
+      router.push('/')
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Login</h1>
+    <div className='max-w-md mx-auto mt-10 p-4 border rounded shadow'>
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+          className="border p-2 rounded w-full"
+        />
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-        className="border p-2 mb-4 w-full"
-      />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+          className="border p-2 rounded w-full"
+        />
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-        className="border p-2 mb-4 w-full"
-      />
+        {error && <p className="text-red-600 mb-4">{error}</p>}
 
-      {error && <p className="text-red-600 mb-4">{error}</p>}
-
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-        Login
-      </button>
-    </form>
+        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-70">
+          Login
+        </button>
+        <Link href='/signup' className='underline'>Don't have an account? Sign Up!</Link>
+      </form>
+    </div>
   )
 }
