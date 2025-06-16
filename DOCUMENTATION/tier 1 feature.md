@@ -7,7 +7,7 @@ These are the **must-have features** for your first public release.
 ### 🔐 1. **User Authentication**
 
 * Email/password login
-* Google OAuth (via NextAuth.js)
+* Signup confirmation link using "resend"
 * No roles — all users can browse and post
 
 ---

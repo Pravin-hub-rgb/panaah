@@ -15,9 +15,11 @@ model User {
   emailVerified  DateTime?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+  sessions       Session[]  // Add this line to establish the relationship
 
   @@map("users")
 }
+
 
 model VerificationToken {
   id         String   @id @default(uuid())
@@ -28,4 +30,14 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("sessions")
 }

@@ -44,16 +44,14 @@ export default function SignupPage() {
   });
 
   const onSubmit = async (data: SignupForm) => {
-    try {
-      await signupMutation.mutateAsync({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      });
-    } catch (error) {
-      // Error is handled by onError callback
-    }
+    await signupMutation.mutateAsync({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
   };
+  
+  
 
   if (isSuccess) {
     return (
