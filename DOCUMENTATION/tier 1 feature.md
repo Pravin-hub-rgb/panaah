@@ -9,6 +9,7 @@ These are the **must-have features** for your first public release.
 * Email/password login
 * Signup confirmation link using "resend"
 * No roles — all users can browse and post
+  - We have use `resend` for email verification!!
 
 ---
 

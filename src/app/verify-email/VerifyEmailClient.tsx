@@ -1,6 +1,5 @@
 "use client";
-
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { api } from "~/trpc/react";
 import Link from "next/link";
@@ -42,7 +41,7 @@ export default function VerifyEmailClient() {
     },
   });
 
-  useEffect(() => {
+  const verifyEmail = useCallback(() => {
     if (token && email) {
       verifyEmailMutation.mutate({ token, email });
     } else {
@@ -52,7 +51,11 @@ export default function VerifyEmailClient() {
       });
       setIsVerifying(false);
     }
-  }, [token, email]);
+  }, [token, email, verifyEmailMutation]);
+
+  useEffect(() => {
+    verifyEmail();
+  }, [verifyEmail]);
 
   const handleResendVerification = () => {
     if (email) {
@@ -73,7 +76,6 @@ export default function VerifyEmailClient() {
           </h2>
           <p className="mt-2 text-sm text-gray-600">{verificationResult?.message}</p>
         </div>
-
         <div className="mt-6 space-y-4">
           {verificationResult?.success ? (
             <Link

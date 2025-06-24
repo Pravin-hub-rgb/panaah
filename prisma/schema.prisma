@@ -15,21 +15,10 @@ model User {
   emailVerified  DateTime?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-  sessions       Session[]  // Add this line to establish the relationship
+  sessions       Session[]
+  listings       Listing[] // 👈 User can post multiple listings
 
   @@map("users")
-}
-
-
-model VerificationToken {
-  id         String   @id @default(uuid())
-  identifier String   // This will be the email
-  token      String   @unique
-  expires    DateTime
-  createdAt  DateTime @default(now())
-
-  @@unique([identifier, token])
-  @@map("verification_tokens")
 }
 
 model Session {
@@ -38,6 +27,47 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   @@map("sessions")
+}
+
+model VerificationToken {
+  id         String   @id @default(uuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Listing {
+  id            String   @id @default(uuid())
+  title         String
+  description   String
+  category      String // PG, Flat, Dharmshala etc.
+  subcategory   String // Male PG, 2 BHK, etc.
+  price         Int?
+  isFree        Boolean  @default(false)
+  genderAllowed String? // Male / Female / All
+  roomType      String? // Shared / Private / Entire Place
+  amenities     String[] // Wi-Fi, AC, Meals etc.
+
+  // 📍 Realistic Address Fields
+  locality    String
+  area        String?
+  city        String
+  district    String
+  state       String
+
+  // 🔗 Owner
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  images         String[]
+
+  // ⏰ Metadata
+  availableFrom DateTime?
+  createdAt     DateTime  @default(now())
 }

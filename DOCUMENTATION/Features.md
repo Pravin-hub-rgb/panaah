@@ -1,4 +1,4 @@
-# Tiered Feature Breakdown – HabitatHub (T3 Stack App)
+# Tiered Feature Breakdown – Panaah (T3 Stack App)
 
 ---
 

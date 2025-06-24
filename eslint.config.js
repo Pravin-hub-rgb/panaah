@@ -1,6 +1,5 @@
 import { FlatCompat } from "@eslint/eslintrc";
 import tseslint from "typescript-eslint";
-
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
 });
@@ -33,6 +32,13 @@ export default tseslint.config(
         "error",
         { checksVoidReturn: { attributes: false } },
       ],
+    },
+  },
+  // Add this configuration for shadcn UI components
+  {
+    files: ["src/components/ui/**/*.ts", "src/components/ui/**/*.tsx"],
+    rules: {
+      "@typescript-eslint/consistent-type-imports": "off",
     },
   },
   {

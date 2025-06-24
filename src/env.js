@@ -24,6 +24,7 @@ export const env = createEnv({
     ),
     RESEND_API_KEY: z.string(),
     FROM_EMAIL: z.string().email(),
+    SUPABASE_SERVICE_ROLE_KEY: z.string(), // Add this line
   },
 
   /**
@@ -46,6 +47,7 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     FROM_EMAIL: process.env.FROM_EMAIL,
+    SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY, // Add this line
   },
   /**
    * Run `build` or `dev` with SKIP_ENV_VALIDATION to skip env validation. This is especially
